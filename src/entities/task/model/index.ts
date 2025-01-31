@@ -4,6 +4,7 @@ export interface ITask {
     description: string;
     completed: boolean;
     date: string;
+    completedAt?: string | null;
 }
 
 // Достаю задачи из localStorage
@@ -47,7 +48,12 @@ export const editTask = async (id: string, title: string, description: string): 
 export const completeTask = async (id: string, completed: boolean): Promise<ITask[]> => {
     const tasks = getTasks();
     const updatedTasks = tasks.map(task =>
-        task.id === id ? {...task, completed} : task
+        task.id === id
+            ? {
+                ...task,
+                completed,
+                completedAt: completed ? new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}) : null
+            } : task
     );
     await saveTasks(updatedTasks);
     return updatedTasks;

@@ -47,7 +47,7 @@ const BoardWidget = () => {
                     <div className="flex flex-col gap-5">
                         {activeTasks.map((task) => (
                             <TaskWidget key={task.id} id={task.id} title={task.title} description={task.description}
-                                        completed={task.completed}/>
+                                        completed={task.completed} completedAt={task.completedAt ?? null}  date={task.date}/>
                         ))}
                     </div>
                 </div>
@@ -58,7 +58,7 @@ const BoardWidget = () => {
                     <div className="flex flex-col gap-5">
                         {completedTasks.map((task) => (
                             <TaskWidget key={task.id} id={task.id} title={task.title} completed={task.completed}
-                                        description={task.description}/>
+                                        description={task.description} date={task.date} completedAt={task.completedAt ?? null} />
                         ))}
                     </div>
                 </div>
