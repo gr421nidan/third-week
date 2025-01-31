@@ -1,0 +1,1 @@
+export { default as CompletedTaskModal } from "./ui/index.tsx";

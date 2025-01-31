@@ -1,0 +1,1 @@
+export { default as DeleteTaskModal } from "./ui/index.tsx";
