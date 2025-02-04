@@ -5,6 +5,7 @@ import {useTaskBoardLogic} from "@/widget/taskBoard/model";
 import {EditTaskModal} from "@/features/editTask";
 import {CompletedTaskModal} from "@/features/completedTask";
 import {DeleteTaskModal} from "@/features/deleteTask";
+import UniversalButton, {EButtonVariant} from "@/shared/ui/buttons";
 
 const BoardWidget = () => {
     const {
@@ -33,11 +34,7 @@ const BoardWidget = () => {
                         {selectDate === isToday ? (
                             <div className="flex flex-row items-center mb-4 gap-5">
                                 <h2 className="text-xl font-semibold text-gray-700">Текущие задачи</h2>
-                                <button
-                                    onClick={() => openModal("create" )}
-                                    className="bg-white shadow-md text-gray-700 rounded px-3 py-1 hover:bg-purple-300">
-                                    +
-                                </button>
+                                <UniversalButton variant={EButtonVariant.ADD} onClick={() => openModal("create")}/>
                             </div>
                         ) : (<div className="flex flex-row items-center mb-4 gap-5">
                             <h2 className="text-xl font-semibold text-gray-700">Невыполненные задачи выбранного дня</h2>

@@ -1,8 +1,6 @@
 import React from "react";
-import DeleteButton from "@/shared/ui/buttons/deleteButton";
-import EditButton from "@/shared/ui/buttons/editButton";
-import CompleteButton from "@/shared/ui/buttons/completedButton";
 import {useTaskModals} from "../model";
+import UniversalButton, {EButtonVariant} from "@/shared/ui/buttons";
 
 
 type TaskCardProps = {
@@ -29,12 +27,12 @@ const TaskWidget: React.FC<TaskCardProps> = ({id, title, description, completed,
             </div>
 
             {completed || date != isToday ? (
-                <DeleteButton onClick={() => openModal("delete", id)}/>
+                <UniversalButton variant={EButtonVariant.DELETE} onClick={() => openModal("delete", id)}/>
             ) : (
                 <div className="flex items-center gap-2">
-                    <DeleteButton onClick={() => openModal("delete", id)}/>
-                    <EditButton onClick={() => openModal("edit", id)}/>
-                    <CompleteButton onClick={() => openModal("complete", id)}/>
+                    <UniversalButton variant={EButtonVariant.DELETE} onClick={() => openModal("delete", id)}/>
+                    <UniversalButton variant={EButtonVariant.EDIT} onClick={() => openModal("edit", id)}/>
+                    <UniversalButton variant={EButtonVariant.COMPLETE} onClick={() => openModal("complete", id)}/>
                 </div>
             )}
         </div>
