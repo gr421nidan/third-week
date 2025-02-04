@@ -1,13 +1,12 @@
-import React from "react";
+import React, {PropsWithChildren} from "react";
 import Modal from "react-modal";
 
 interface IModalComponentProps {
     isOpen: boolean;
     onClose: () => void;
-    children: React.ReactNode;
 }
 
-const ModalComponent: React.FC<IModalComponentProps> = ({isOpen, onClose, children}) => {
+const ModalComponent: React.FC<PropsWithChildren<IModalComponentProps>> = ({isOpen, onClose, children}) => {
     return (
         <Modal
             isOpen={isOpen}

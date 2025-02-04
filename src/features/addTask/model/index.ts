@@ -1,23 +1,22 @@
-import { ITask } from "@/entities/task/model";
-import { useCreateTask } from "@/shared/store/taskQuery";
-import { useForm } from "react-hook-form";
+import {ITaskBase} from "@/entities/task/model";
+import {useForm} from "react-hook-form";
+import {useCreateTask} from "@/entities/task/model/taskQuery.ts";
 
-export const useAddTask = (onTaskAdded: (tasks: ITask[]) => void, onClose: () => void) => {
+export const useAddTask = (onClose: () => void) => {
 
     const createTaskMutation = useCreateTask();
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
-    const onSubmit = async (data: { title: string; description: string }) => {
-        const { title, description } = data;
+    const {register, handleSubmit, reset, formState: {errors}} = useForm<ITaskBase>();
+    const onSubmit = async (data: ITaskBase) => {
+        const {title, description} = data;
         const dateNow = new Date().toISOString().split("T")[0];
-
-        createTaskMutation.mutate({ title, description, date: dateNow }, {
-            onSuccess: (updatedTasks) => {
-                reset();
-                onClose();
-                onTaskAdded(updatedTasks);
-            },
-        });
+        try {
+            await createTaskMutation.mutateAsync( { title, description, date: dateNow });
+            reset();
+            onClose();
+        }catch (error) {
+            console.error("Ошибка при создании задачи:", error);
+        }
     };
 
-    return { register, handleSubmit: handleSubmit(onSubmit), errors };
+    return {register, handleSubmit: handleSubmit(onSubmit), errors};
 };

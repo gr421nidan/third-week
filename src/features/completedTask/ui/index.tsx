@@ -7,12 +7,11 @@ interface ICompletedTaskModalProps {
     isOpen: boolean;
     task: ITask | null;
     onClose: () => void;
-    onTaskComplete: (tasks: ITask[]) => void;
 }
 
-const CompletedTaskModal: React.FC<ICompletedTaskModalProps> = ({isOpen, task, onClose, onTaskComplete}) => {
+const CompletedTaskModal: React.FC<ICompletedTaskModalProps> = ({isOpen, task, onClose}) => {
 
-    const {handleSubmit} = useCompletedTask(task, onTaskComplete, onClose);
+    const {handleSubmit} = useCompletedTask(task, onClose);
     return (
         <ModalComponent isOpen={isOpen} onClose={onClose}>
             <h2 className="text-xl font-semibold text-gray-700 mb-4">Вы точно выполнили задачу?</h2>

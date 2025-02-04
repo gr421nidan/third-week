@@ -1,6 +1,5 @@
 import TaskWidget from "@/widget/task/ui";
 import DatePic from "@/features/datePic/ui";
-import React from 'react';
 import {AddTaskModal} from "@/features/addTask";
 import {useTaskBoardLogic} from "@/widget/taskBoard/model";
 import {EditTaskModal} from "@/features/editTask";

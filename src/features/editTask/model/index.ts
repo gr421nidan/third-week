@@ -1,21 +1,22 @@
-import {ITask} from "@/entities/task/model";
-import {useEditedTask} from "@/shared/store/taskQuery.ts";
-import {useForm} from "react-hook-form";
+import {ITask, IEditTask} from "@/entities/task/model";
 
-export const useEditTask = (task: ITask | null, onTaskUpdated: (tasks: ITask[]) => void, onClose: () => void) => {
+import {useForm} from "react-hook-form";
+import {useEditedTask} from "@/entities/task/model/taskQuery.ts";
+
+export const useEditTask = (task: ITask | null, onClose: () => void) => {
 
     const editedTaskMutation = useEditedTask();
-    const {register, handleSubmit, reset, formState: {errors}} = useForm();
-    const onSubmit = async (data: { title: string; description: string }) => {
+    const {register, handleSubmit, reset, formState: {errors}} = useForm<IEditTask>();
+    const onSubmit = async (data: IEditTask) => {
         const {title, description} = data;
         if (task) {
-            editedTaskMutation.mutate({id: task.id ,title, description}, {
-                onSuccess: (updatedTasks) => {
-                    reset();
-                    onClose();
-                    onTaskUpdated(updatedTasks);
-                },
-            })
+            try {
+                await editedTaskMutation.mutateAsync({id: task.id, title, description});
+                reset();
+                onClose();
+            } catch (error) {
+                console.error("Ошибка при редактировании задачи:", error);
+            }
         }
     };
     return {register, handleSubmit: handleSubmit(onSubmit), errors};

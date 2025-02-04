@@ -8,11 +8,10 @@ interface IDeleteTaskModalProps {
     isOpen: boolean;
     task: ITask | null;
     onClose: () => void;
-    onTaskDelete: (tasks: ITask[]) => void;
 }
 
-const DeleteTaskModal: React.FC<IDeleteTaskModalProps> = ({ isOpen, task, onClose, onTaskDelete }) => {
-    const { handleSubmit } = useDeleteTask(task, onTaskDelete, onClose);
+const DeleteTaskModal: React.FC<IDeleteTaskModalProps> = ({ isOpen, task, onClose}) => {
+    const { handleSubmit } = useDeleteTask(task, onClose);
 
     return (
         <ModalComponent isOpen={isOpen} onClose={onClose}>

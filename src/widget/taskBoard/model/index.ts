@@ -1,7 +1,7 @@
 import {useStore} from "@tanstack/react-store";
-import {useTasks} from "@/shared/store/taskQuery";
 import {taskStore, taskActions} from "@/shared/store/taskStore";
 import {useEffect} from "react";
+import {useTasks} from "@/entities/task/model/taskQuery.ts";
 
 export const useTaskBoardLogic = () => {
     const {data: fetchedTasks = [], isLoading} = useTasks();

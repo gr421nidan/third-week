@@ -1,17 +1,15 @@
 import React from "react";
 import ModalComponent from "@/shared/ui/modal";
 import { useAddTask } from "../model/index.ts";
-import { ITask } from "@/entities/task/model";
 
 interface IAddTaskModalProps {
     isOpen: boolean;
-    onTaskAdded: (tasks: ITask[]) => void;
     onClose:()=>void
 }
 
-const AddTaskModal: React.FC<IAddTaskModalProps> = ({isOpen, onClose, onTaskAdded}) => {
+const AddTaskModal: React.FC<IAddTaskModalProps> = ({isOpen, onClose}) => {
 
-    const { register, handleSubmit, errors } = useAddTask(onTaskAdded, onClose);
+    const { register, handleSubmit, errors } = useAddTask( onClose);
 
     return (
         <ModalComponent isOpen={isOpen} onClose={onClose}>

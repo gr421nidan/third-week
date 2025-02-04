@@ -7,11 +7,10 @@ interface IEditTaskModalProps {
     isOpen: boolean;
     task: ITask | null;
     onClose: () => void;
-    onTaskEdit: (tasks: ITask[]) => void;
 }
 
-const EditTaskModal: React.FC<IEditTaskModalProps> = ({isOpen, task, onClose, onTaskEdit}) => {
-    const {register, handleSubmit, errors} = useEditTask(task, onTaskEdit, onClose);
+const EditTaskModal: React.FC<IEditTaskModalProps> = ({isOpen, task, onClose}) => {
+    const {register, handleSubmit, errors} = useEditTask(task, onClose);
     return (
         <ModalComponent isOpen={isOpen} onClose={onClose}>
             <h2 className="text-xl font-semibold text-gray-700 mb-4">Редактировать задачу</h2>
