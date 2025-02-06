@@ -6,16 +6,16 @@ export const useAddTask = (onClose: () => void) => {
 
     const createTaskMutation = useCreateTask();
     const {register, handleSubmit, reset, formState: {errors}} = useForm<ITaskBase>();
-    const onSubmit = async (data: ITaskBase) => {
-        const {title, description} = data;
+    const onSubmit = async ({title, description}: ITaskBase) => {
         const dateNow = new Date().toISOString().split("T")[0];
-        try {
-            await createTaskMutation.mutateAsync( { title, description, date: dateNow });
-            reset();
-            onClose();
-        }catch (error) {
-            console.error("Ошибка при создании задачи:", error);
-        }
+        await createTaskMutation.mutateAsync({title, description, date: dateNow}, {
+            onSuccess: () => {
+                reset();
+                onClose();
+            }, onError: (error) => {
+                console.error("Ошибка при создании задачи:", error);
+            }
+        });
     };
 
     return {register, handleSubmit: handleSubmit(onSubmit), errors};

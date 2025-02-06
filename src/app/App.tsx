@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react';
 import MainPage from "@/pages/main";
-import { AppProvider } from "@/shared/";
+import { AppProvider } from "@/shared/providers";
 import Modal from "react-modal";
 
 Modal.setAppElement("#root");

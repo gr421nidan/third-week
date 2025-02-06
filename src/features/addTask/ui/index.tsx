@@ -1,6 +1,8 @@
 import React from "react";
 import ModalComponent from "@/shared/ui/modal";
 import { useAddTask } from "../model/index.ts";
+import ButtonAction from "@/shared/ui/buttons/buttonAction.tsx";
+import TaskForm from "@/shared/ui/components/taskForm.tsx";
 
 interface IAddTaskModalProps {
     isOpen: boolean;
@@ -15,33 +17,10 @@ const AddTaskModal: React.FC<IAddTaskModalProps> = ({isOpen, onClose}) => {
         <ModalComponent isOpen={isOpen} onClose={onClose}>
             <h2 className="text-xl font-semibold text-gray-700 mb-4">Создать задачу</h2>
             <form onSubmit={handleSubmit}>
-                <div>
-                    <input
-                        type="text"
-                        placeholder="Название задачи"
-                        {...register("title", {required: "Название задачи обязательно"})}
-                        className="border p-2 w-full rounded mb-2"
-                    />
-                    {errors.title && <span className="text-red-500 text-sm">{errors.title.message}</span>}
-                </div>
-                <div>
-                    <textarea
-                        placeholder="Описание задачи"
-                        {...register("description", {required: "Описание задачи обязательно"})}
-                        className="border p-2 w-full rounded mb-2"
-                    />
-                    {errors.description && <span className="text-red-500 text-sm">{errors.description.message}</span>}
-                </div>
-
+                <TaskForm register={register} errors={errors}/>
                 <div className="flex justify-end gap-2">
-                    <button onClick={onClose}
-                            className="bg-gray-400 text-white px-4 py-2 rounded shadow hover:bg-gray-500">
-                        Отмена
-                    </button>
-                    <button onClick={handleSubmit}
-                            className="bg-gray-400 text-white px-4 py-2 rounded shadow hover:bg-purple-300">
-                        Создать
-                    </button>
+                    <ButtonAction onClick={onClose} label={"Отмена"} className="hover:bg-gray-500"/>
+                    <ButtonAction onClick={handleSubmit} label={"Создать"} className="hover:bg-purple-300"/>
                 </div>
             </form>
         </ModalComponent>

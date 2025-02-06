@@ -16,7 +16,7 @@ export interface IAddTask extends ITaskBase{
     date: string;
 }
 export interface IEditTask extends ITaskBase{
-    id: string;
+    id?: string;
 }
 export interface ICompleteTask extends ITaskBase{
     id: string;

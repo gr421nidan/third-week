@@ -18,12 +18,10 @@ export const useTaskBoardLogic = () => {
         isModalOpen: modalType !== null,
         modalType,
         selectedTask,
-        closeModal: taskActions.closeModal,
-        openModal: taskActions.openModal,
         activeTasks: tasks.filter((task) => task.date === selectDate && !task.completed),
         completedTasks: tasks.filter((task) => task.date === selectDate && task.completed),
         selectDate,
-        setSelectDate: taskActions.setSelectDate,
+        ...taskActions,
         isToday,
     };
 };

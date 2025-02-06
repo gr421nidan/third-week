@@ -6,12 +6,13 @@ export const useDeleteTask = (task: ITask | null, onClose: () => void) => {
     const deleteTaskMutation = useDeletedTask();
     const handleSubmit = async () => {
         if (task) {
-            try {
-                await deleteTaskMutation.mutateAsync(task.id);
-                onClose();
-            } catch (error) {
-                console.error("Ошибка при удалении задачи:", error);
-            }
+            await deleteTaskMutation.mutateAsync(task.id, {
+                onSuccess: () => {
+                    onClose();
+                }, onError: (error) => {
+                    console.error("Ошибка при удалении задачи:", error);
+                }
+            });
         }
     };
     return {handleSubmit};

@@ -2,6 +2,7 @@ import React from "react";
 import ModalComponent from "@/shared/ui/modal";
 import {useCompletedTask} from "../model/index.ts";
 import {ITask} from "@/entities/task/model";
+import ButtonAction from "@/shared/ui/buttons/buttonAction.tsx";
 
 interface ICompletedTaskModalProps {
     isOpen: boolean;
@@ -17,16 +18,8 @@ const CompletedTaskModal: React.FC<ICompletedTaskModalProps> = ({isOpen, task, o
             <h2 className="text-xl font-semibold text-gray-700 mb-4">Вы точно выполнили задачу?</h2>
 
             <div className="flex justify-end gap-2">
-                <button
-                    onClick={onClose}
-                    className="bg-gray-400 text-white px-4 py-2 rounded shadow hover:bg-gray-500">
-                    Нет
-                </button>
-                <button
-                    onClick={handleSubmit}
-                    className="bg-gray-400 text-white px-4 py-2 rounded shadow hover:bg-purple-300">
-                    Да
-                </button>
+                <ButtonAction onClick={onClose} label={"Нет"} className="hover:bg-gray-500"/>
+                <ButtonAction onClick={handleSubmit} label={"Да"} className="hover:bg-purple-300"/>
             </div>
 
         </ModalComponent>

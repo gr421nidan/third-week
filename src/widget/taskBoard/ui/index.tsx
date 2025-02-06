@@ -5,7 +5,9 @@ import {useTaskBoardLogic} from "@/widget/taskBoard/model";
 import {EditTaskModal} from "@/features/editTask";
 import {CompletedTaskModal} from "@/features/completedTask";
 import {DeleteTaskModal} from "@/features/deleteTask";
-import UniversalButton, {EButtonVariant} from "@/shared/ui/buttons";
+import UniversalButton from "@/shared/ui/buttons";
+import {EButtonVariant} from "@/shared/ui/buttons/EButtonVariant.tsx";
+import ColumnHeader from "@/shared/ui/components/headerColumn.tsx";
 
 const BoardWidget = () => {
     const {
@@ -22,39 +24,35 @@ const BoardWidget = () => {
     } = useTaskBoardLogic();
 
     if (isLoading) {
-        return <div>Загрузка...</div>;
+        return (<div>Загрузка...</div>);
     }
+    const handleOpenModal = () =>
+        openModal("create");
 
     return (
         <div className="p-4 mt-5 bg-white min-h-screen flex flex-col items-center rounded-lg shadow">
             <DatePic selectDate={selectDate} onDateChange={setSelectDate}/>
             <section className="grid grid-cols-2 gap-4 mt-5 min-h-screen min-w-full">
                 <div className="bg-purple-100 p-4 rounded-lg shadow-md ">
-                    <div className="flex flex-row items-center mb-4 gap-5">
-                        {selectDate === isToday ? (
-                            <div className="flex flex-row items-center mb-4 gap-5">
-                                <h2 className="text-xl font-semibold text-gray-700">Текущие задачи</h2>
-                                <UniversalButton variant={EButtonVariant.ADD} onClick={() => openModal("create")}/>
-                            </div>
-                        ) : (<div className="flex flex-row items-center mb-4 gap-5">
-                            <h2 className="text-xl font-semibold text-gray-700">Невыполненные задачи выбранного дня</h2>
-                        </div>)}
-                    </div>
+                    <ColumnHeader
+                        title={selectDate === isToday ? "Текущие задачи" : "Невыполненные задачи выбранного дня"}
+                        actionButton={selectDate === isToday ? <UniversalButton variant={EButtonVariant.ADD}
+                                                                                onClick={handleOpenModal}/> : null}/>
                     <div className="flex flex-col gap-5">
                         {activeTasks.map((task) => (
                             <TaskWidget key={task.id} id={task.id} title={task.title} description={task.description}
-                                        completed={task.completed} completedAt={task.completedAt ?? null}  date={task.date}/>
+                                        completed={task.completed} completedAt={task.completedAt ?? null}
+                                        date={task.date}/>
                         ))}
                     </div>
                 </div>
                 <div className="bg-purple-100 p-4 rounded-lg shadow-md flex-1">
-                    <div className="flex flex-row items-center mb-4 gap-5">
-                        <h2 className="text-xl font-semibold text-gray-700">Выполненные задачи</h2>
-                    </div>
+                    <ColumnHeader title={"Выполненные задачи"}/>
                     <div className="flex flex-col gap-5">
                         {completedTasks.map((task) => (
                             <TaskWidget key={task.id} id={task.id} title={task.title} completed={task.completed}
-                                        description={task.description} date={task.date} completedAt={task.completedAt ?? null} />
+                                        description={task.description} date={task.date}
+                                        completedAt={task.completedAt ?? null}/>
                         ))}
                     </div>
                 </div>

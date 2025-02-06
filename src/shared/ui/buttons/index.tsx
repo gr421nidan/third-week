@@ -1,12 +1,6 @@
-import {Check, Trash, Edit, Plus} from "lucide-react";
-import {FC, ButtonHTMLAttributes} from "react";
-
-export enum EButtonVariant {
-    COMPLETE = "complete",
-    DELETE = "delete",
-    EDIT = "edit",
-    ADD = "add",
-}
+import {Check, Edit, Plus, Trash} from "lucide-react";
+import {ButtonHTMLAttributes, FC} from "react";
+import {EButtonVariant} from "@/shared/ui/buttons/EButtonVariant.tsx";
 
 interface IIconButton extends ButtonHTMLAttributes<HTMLButtonElement> {
     variant: EButtonVariant;
